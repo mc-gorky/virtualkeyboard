@@ -172,7 +172,7 @@ class Keyboard {
 
     btn.innerText = btnConfig.text;
     btn.id = btnConfig.id;
-    btn.classList.add('capsLock');
+    btn.classList.add('caps-lock');
 
     btn.onclick = this._onCapsLockClick.bind(this);
 
@@ -219,8 +219,7 @@ class Keyboard {
 
     btn.innerText = btnConfig.text;
     btn.id = btnConfig.id;
-    btn.class = btnConfig.class;
-    btn.classList.add(btn.class);
+    btn.classList.add(btnConfig.className);
 
     btn.onclick = this._onShiftClick.bind(this);
 
