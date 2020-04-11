@@ -1,4 +1,4 @@
-export const buttonTypes =  {
+export const buttonTypes = {
   printSymbol: 'printSymbol',
   capsLock: 'capsLock',
   backspace: 'backspace',
@@ -10,7 +10,7 @@ export const buttonTypes =  {
   alt: 'alt',
   del: 'del',
   spacebar: 'spacebar',
-}
+};
 
 export const buttonsConfig = {
   Backquote: {
@@ -45,14 +45,14 @@ export const buttonsConfig = {
     type: buttonTypes.printSymbol,
     text: {
       en: {
-      default: '2',
-      shift: '@',
+        default: '2',
+        shift: '@',
+      },
+      ru: {
+        default: '2',
+        shift: '"',
+      },
     },
-    ru: {
-      default: '2',
-      shift: '"',
-    },
-  },
     id: 'Digit2',
   },
   Digit3: {
@@ -182,18 +182,18 @@ export const buttonsConfig = {
     id: 'Minus',
   },
   Equal: {
-      type: buttonTypes.printSymbol,
-      text: {
-        en: {
-          default: '=',
-          shift: '+',
-        },
-        ru: {
-          default: '=',
-          shift: '+',
-        },
+    type: buttonTypes.printSymbol,
+    text: {
+      en: {
+        default: '=',
+        shift: '+',
       },
-      id: 'Equal',
+      ru: {
+        default: '=',
+        shift: '+',
+      },
+    },
+    id: 'Equal',
   },
   Backspace: {
     type: buttonTypes.backspace,
@@ -248,19 +248,19 @@ export const buttonsConfig = {
     id: 'KeyE',
   },
   KeyR: {
-      type: buttonTypes.printSymbol,
-      text: {
-        en: {
-          default: 'r',
-          shift: 'R',
-        },
-        ru: {
-          default: 'к',
-          shift: 'К',
-        },
+    type: buttonTypes.printSymbol,
+    text: {
+      en: {
+        default: 'r',
+        shift: 'R',
       },
-      id: 'KeyR',
+      ru: {
+        default: 'к',
+        shift: 'К',
+      },
     },
+    id: 'KeyR',
+  },
   KeyT: {
     type: buttonTypes.printSymbol,
     text: {
@@ -420,7 +420,7 @@ export const buttonsConfig = {
     },
     id: 'KeyS',
   },
-  KeyD:{
+  KeyD: {
     type: buttonTypes.printSymbol,
     text: {
       en: {
@@ -579,7 +579,7 @@ export const buttonsConfig = {
   },
   KeyX: {
     type: buttonTypes.printSymbol,
-    text:  {
+    text: {
       en: {
         default: 'x',
         shift: 'X',
@@ -706,37 +706,37 @@ export const buttonsConfig = {
   ControlLeft: {
     type: buttonTypes.control,
     text: 'Ctrl',
-    id: 'ControlLeft', 
+    id: 'ControlLeft',
   },
   ControlRight: {
     type: buttonTypes.control,
     text: 'Ctrl',
-    id: 'ControlRight', 
+    id: 'ControlRight',
   },
   MetaLeft: {
     type: buttonTypes.meta,
     text: 'Win',
-    id: 'MetaLeft', 
+    id: 'MetaLeft',
   },
   MetaRight: {
     type: buttonTypes.meta,
     text: 'Win',
-    id: 'MetaRight', 
+    id: 'MetaRight',
   },
   AltLeft: {
     type: buttonTypes.alt,
     text: 'Alt',
-    id: 'AltLeft', 
+    id: 'AltLeft',
   },
   AltRight: {
     type: buttonTypes.alt,
     text: 'Alt',
-    id: 'AltRight', 
+    id: 'AltRight',
   },
   Space: {
     type: buttonTypes.spacebar,
     text: '',
-    id: 'Space', 
+    id: 'Space',
   },
   ArrowLeft: {
     type: buttonTypes.printSymbol,
@@ -797,7 +797,7 @@ export const buttonsConfig = {
   Delete: {
     type: buttonTypes.del,
     text: 'Del',
-    id: 'Delete', 
+    id: 'Delete',
   },
 };
 

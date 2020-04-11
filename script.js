@@ -1,29 +1,28 @@
-import { buttonTypes } from './constants/keyboard-config.js';
-import { buttonsConfig } from './constants/keyboard-config.js';
-import { config } from './constants/keyboard-config.js';
+import { buttonTypes, buttonsConfig, config } from './constants/keyboard-config.js';
+
 
 window.onload = () => {
   new App();
-}
+};
 
 class App {
-    constructor() {
-      new Textarea();
-      new Keyboard(config);
-    }
+  constructor() {
+    new Textarea();
+    new Keyboard(config);
+  }
 }
 
 class Keyboard {
   constructor(config) {
-      this.language = localStorage.getItem('language') || 'EN';
-      this.selectedButtons = [];
+    this.language = localStorage.getItem('language') || 'EN';
+    this.selectedButtons = [];
 
-      this.keyboardContainer = this._createKeyboardContainer();
+    this.keyboardContainer = this._createKeyboardContainer();
 
-      config.forEach(rowConfig => this._createRow(rowConfig));
-      
-      this._addKeyboardListener();
-      this._createDescription();
+    config.forEach((rowConfig) => this._createRow(rowConfig));
+
+    this._addKeyboardListener();
+    this._createDescription();
   }
 
   _createKeyboardContainer() {
@@ -37,15 +36,15 @@ class Keyboard {
 
   _createRow(config) {
     const row = document.createElement('div');
-    
+
     row.className = 'keyboard-row';
-   
-    config.forEach(btnConfig => {
+
+    config.forEach((btnConfig) => {
       const btn = this._createButton(btnConfig);
 
       if (btn) {
         btn.classList.add('button');
-      
+
         row.append(btn);
       }
     });
@@ -56,7 +55,7 @@ class Keyboard {
   _createButton(btnConfig) {
     let btn;
 
-    switch(btnConfig.type) {
+    switch (btnConfig.type) {
       case buttonTypes.printSymbol:
         btn = this._createSymbolButton(btnConfig);
         break;
@@ -79,8 +78,8 @@ class Keyboard {
         btn = this._creatControlButton(btnConfig);
         break;
       case buttonTypes.meta:
-          btn = this._creatMetaButton(btnConfig);
-          break;
+        btn = this._creatMetaButton(btnConfig);
+        break;
       case buttonTypes.alt:
         btn = this._creatAltButton(btnConfig);
         break;
@@ -118,8 +117,8 @@ class Keyboard {
   _printSymbol(button) {
     const output = button.innerText;
     const textArea = document.getElementById('textarea');
-    const selectionStart = textArea.selectionStart;
-    const selectionEnd = textArea.selectionEnd;
+    const { selectionStart } = textArea;
+    const { selectionEnd } = textArea;
 
     textArea.focus();
     textArea.setRangeText(output, selectionStart, selectionEnd, 'end');
@@ -130,10 +129,10 @@ class Keyboard {
   }
 
   _printEnter() {
-    const output = "\n";
+    const output = '\n';
     const textArea = document.getElementById('textarea');
-    const selectionStart = textArea.selectionStart;
-    const selectionEnd = textArea.selectionEnd;
+    const { selectionStart } = textArea;
+    const { selectionEnd } = textArea;
 
     textArea.focus();
     textArea.setRangeText(output, selectionStart, selectionEnd, 'end');
@@ -144,10 +143,10 @@ class Keyboard {
   }
 
   _printSpace() {
-    const output = " ";
+    const output = ' ';
     const textArea = document.getElementById('textarea');
-    const selectionStart = textArea.selectionStart;
-    const selectionEnd = textArea.selectionEnd;
+    const { selectionStart } = textArea;
+    const { selectionEnd } = textArea;
 
     textArea.focus();
     textArea.setRangeText(output, selectionStart, selectionEnd, 'end');
@@ -158,11 +157,11 @@ class Keyboard {
   }
 
   _printTab() {
-    const output = "    ";
+    const output = '    ';
     const textArea = document.getElementById('textarea');
 
-    const selectionStart = textArea.selectionStart;
-    const selectionEnd = textArea.selectionEnd;
+    const { selectionStart } = textArea;
+    const { selectionEnd } = textArea;
 
     textArea.focus();
     textArea.setRangeText(output, selectionStart, selectionEnd, 'end');
@@ -287,9 +286,9 @@ class Keyboard {
   }
 
   _toggleCapsLock(button) {
-    const index = this.selectedButtons.indexOf('CapsLock'); 
+    const index = this.selectedButtons.indexOf('CapsLock');
 
-    if (index === -1) { 
+    if (index === -1) {
       this.selectedButtons.push('CapsLock');
     } else {
       this.selectedButtons.splice(index, 1);
@@ -301,7 +300,7 @@ class Keyboard {
   }
 
   _onShiftClick() {
-    const id = event.target.id;
+    const { id } = event.target;
 
     this._handleShiftClick(id);
   }
@@ -309,8 +308,8 @@ class Keyboard {
   _handleShiftClick(code) {
     const isShiftOn = this.selectedButtons.includes('ShiftLeft') || this.selectedButtons.includes('ShiftRight');
 
-    if (isShiftOn) { 
-      this.selectedButtons = this.selectedButtons.filter(button => button !== 'ShiftLeft' && button !== 'ShiftRight');
+    if (isShiftOn) {
+      this.selectedButtons = this.selectedButtons.filter((button) => button !== 'ShiftLeft' && button !== 'ShiftRight');
     } else {
       this.selectedButtons.push(code);
     }
@@ -320,7 +319,7 @@ class Keyboard {
   }
 
   _onCtrlClick(event) {
-    const id = event.target.id;
+    const { id } = event.target;
 
     this._handleCtrlClick(id);
   }
@@ -328,8 +327,8 @@ class Keyboard {
   _handleCtrlClick(code) {
     const isCtrlOn = this.selectedButtons.includes('ControlLeft') || this.selectedButtons.includes('ControlRight'); // move to separate const
 
-    if (isCtrlOn) { 
-      this.selectedButtons = this.selectedButtons.filter(button => button !== 'ControlLeft' && button !== 'ControlRight');
+    if (isCtrlOn) {
+      this.selectedButtons = this.selectedButtons.filter((button) => button !== 'ControlLeft' && button !== 'ControlRight');
     } else {
       this.selectedButtons.push(code);
     }
@@ -339,14 +338,14 @@ class Keyboard {
   }
 
   _handleShiftCtrlCombination() {
-    let isShiftOn = this.selectedButtons.includes('ShiftLeft') || this.selectedButtons.includes('ShiftRight'); // move to separate const
-    let isCtrlOn = this.selectedButtons.includes('ControlLeft') || this.selectedButtons.includes('ControlRight'); // move to separate const
+    const isShiftOn = this.selectedButtons.includes('ShiftLeft') || this.selectedButtons.includes('ShiftRight'); // move to separate const
+    const isCtrlOn = this.selectedButtons.includes('ControlLeft') || this.selectedButtons.includes('ControlRight'); // move to separate const
 
     if (isShiftOn && isCtrlOn) {
       this._changeLanguage();
 
       this.selectedButtons = this.selectedButtons.filter(
-        button => button !== 'ShiftLeft' && button !== 'ShiftRight' && button !== 'ControlLeft' && button !== 'ControlRight'
+        (button) => button !== 'ShiftLeft' && button !== 'ShiftRight' && button !== 'ControlLeft' && button !== 'ControlRight',
       );
     }
   }
@@ -383,8 +382,8 @@ class Keyboard {
 
     const symbolButtons = this.keyboardContainer.querySelectorAll('button[symbol-btn]');
 
-    symbolButtons.forEach(button => {
-      const id = button.id;
+    symbolButtons.forEach((button) => {
+      const { id } = button;
       const config = buttonsConfig[id].text[languageKey];
 
       if (isShiftOn) {
@@ -393,21 +392,19 @@ class Keyboard {
         } else {
           button.innerText = config.shift;
         }
+      } else if (isCapsLockOn) {
+        button.innerText = config.default.toUpperCase();
       } else {
-        if (isCapsLockOn) {
-          button.innerText = config.default.toUpperCase();
-        } else {
-          button.innerText = config.default;
-        }
+        button.innerText = config.default;
       }
     });
   }
 
   _onBackspaceClick() {
     const textArea = document.querySelector('.textarea');
-    const textLength = textArea.textLength;
-    const selectionStart = textArea.selectionStart;
-    const selectionEnd = textArea.selectionEnd;
+    const { textLength } = textArea;
+    const { selectionStart } = textArea;
+    const { selectionEnd } = textArea;
     const selectedLength = selectionEnd - selectionStart;
 
     if (!textLength || !selectedLength && !selectionStart) {
@@ -421,17 +418,16 @@ class Keyboard {
 
   _onDelClick() {
     const textArea = document.getElementById('textarea');
-    let selectionStart = textArea.selectionStart;
-    
+    const { selectionStart } = textArea;
+
     textArea.focus();
     textArea.setRangeText('', selectionStart, selectionStart + 1, 'end');
-
   }
 
   _onKeyboardShiftOrCtrlDown(code) {
     const index = this.selectedButtons.indexOf(code);
 
-    if (index === -1) { 
+    if (index === -1) {
       this.selectedButtons.push(code);
     }
 
@@ -439,13 +435,13 @@ class Keyboard {
   }
 
   _onKeyboardShiftUp() {
-    this.selectedButtons = this.selectedButtons.filter(button => button !== 'ShiftLeft' && button !== 'ShiftRight');
+    this.selectedButtons = this.selectedButtons.filter((button) => button !== 'ShiftLeft' && button !== 'ShiftRight');
 
     this._changeButtonText();
   }
 
   _onKeyboardCtrlUp() {
-    this.selectedButtons = this.selectedButtons.filter(button => button !== 'ControlLeft' && button !== 'ControlRight');
+    this.selectedButtons = this.selectedButtons.filter((button) => button !== 'ControlLeft' && button !== 'ControlRight');
 
     this._changeButtonText();
   }
@@ -457,7 +453,7 @@ class Keyboard {
     const config = buttonsConfig[code];
     const button = this.keyboardContainer.querySelector(`#${code}`);
 
-    switch(config.type) {
+    switch (config.type) {
       case buttonTypes.printSymbol:
         this._printSymbol(button);
         this._selectButton(button);
@@ -490,7 +486,7 @@ class Keyboard {
         break;
       case buttonTypes.meta:
         this._selectButton(button);
-          break;
+        break;
       case buttonTypes.alt:
         this._selectButton(button);
         break;
@@ -506,16 +502,16 @@ class Keyboard {
     const config = buttonsConfig[code];
     const button = this.keyboardContainer.querySelector(`#${code}`);
 
-    switch(config.type) {
+    switch (config.type) {
       case buttonTypes.printSymbol:
         this._deselectButton(button);
         break;
       case buttonTypes.backspace:
         this._deselectButton(button);
         break;
-        case buttonTypes.del:
-          this._deselectButton(button);
-          break;
+      case buttonTypes.del:
+        this._deselectButton(button);
+        break;
       case buttonTypes.capsLock:
         this._toggleCapsLock(button);
         break;
@@ -561,7 +557,7 @@ class Keyboard {
   _createDescription() {
     const description = document.createElement('p');
     description.classList.add('description');
-    description.innerText = 'Клавиатура создана в операционной системе Windows. Для переключения клавиш нажмите ctrl + shift'
+    description.innerText = 'Клавиатура создана в операционной системе Windows. Для переключения клавиш нажмите ctrl + shift';
     document.body.appendChild(description);
   }
 }
@@ -569,9 +565,9 @@ class Keyboard {
 class Textarea {
   constructor() {
     this.value = '';
-    
+
     const textarea = document.createElement('textarea');
-    textarea.classList.add('textarea');  
+    textarea.classList.add('textarea');
     textarea.id = 'textarea';
     document.body.appendChild(textarea);
   }
